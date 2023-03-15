@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 
 entity sodamachine is  
   port ( moeda, produto: in std_logic_vector (1 downto 0); 
-         c, clock, reset: in std_logic;
+         velocidade: in std_logic_vector (7 downto 0);
+			c, clock, reset: in std_logic;
 			d: out std_logic;
 			troco: out std_logic_vector (7 downto 0)
 			
@@ -19,7 +20,9 @@ signal tot_ld, tot_clr, tot_lt: std_logic;
   
   component partedecontrole is  
      port ( c, tot_lt, clock, reset: in std_logic; 
-            d, tot_ld, tot_clr: out std_logic
+            velocidade: in std_logic_vector (7 downto 0);
+				d, tot_ld, tot_clr: out std_logic
+				
 				
 		 );
   end component; 
@@ -41,9 +44,11 @@ begin
 			tot_lt => tot_lt,
 			clock => clock,
 			reset => reset,
+			velocidade => velocidade,
 			d => d,
 			tot_ld => tot_ld,
 			tot_clr => tot_clr
+			
 		);
 		
 		PO: parteoperativa port map (
