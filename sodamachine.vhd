@@ -1,6 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.all; 
-use ieee.std_logic_unsigned.all; 
 use ieee.numeric_std.all;
 
 entity sodamachine is  
@@ -8,7 +7,8 @@ entity sodamachine is
          velocidade: in std_logic_vector (7 downto 0);
 			c, clock, reset: in std_logic;
 			d: out std_logic;
-			troco: out std_logic_vector (7 downto 0)
+			troco: out std_logic_vector (7 downto 0);
+			fraude: out std_logic
 			
 		 );
 end sodamachine; 
@@ -21,8 +21,8 @@ signal tot_ld, tot_clr, tot_lt: std_logic;
   component partedecontrole is  
      port ( c, tot_lt, clock, reset: in std_logic; 
             velocidade: in std_logic_vector (7 downto 0);
-				d, tot_ld, tot_clr: out std_logic
-				
+	    d, tot_ld, tot_clr: out std_logic;
+	    fraude: out std_logic		
 				
 		 );
   end component; 
@@ -46,6 +46,7 @@ begin
 			reset => reset,
 			velocidade => velocidade,
 			d => d,
+			fraude => fraude,
 			tot_ld => tot_ld,
 			tot_clr => tot_clr
 			
